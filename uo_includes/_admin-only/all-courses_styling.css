@@ -1,0 +1,23 @@
+/* Make invisible and not affect layout. Remain readable by screenreaders - v1: 06/01/2020 */
+.uo_screenreader-only {
+	position:absolute;
+	left:-10000px;
+	top:auto;
+	width:1px;
+	height:1px;
+	overflow:hidden;
+}
+
+
+/* Make invisible but still affect layout - v1: 06/01/2020 */
+.uo_spacer .ev-component-inner,
+.uo_spacer .ev-code-inner {
+	position:relative;
+	left:-10000px;
+}
+
+
+/* Make invisible but still affect layout - v1: 06/01/2020 */
+.uo_hidden {
+	display: none !important;
+}

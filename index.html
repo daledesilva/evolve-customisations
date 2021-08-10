@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- DEVELOPERS: The EVOLVE Team (evolveauthoring.com) - Akram Ali, Sal Ali, Wesley Atkinson, Nairi Booloozian, Matt Cleghorn, Daryl Hedley, Malcolm Jukes, Brandon Karunakaran -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="utf-8" http-equiv="encoding">
+    <meta name="format-detection" content="telephone=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title>eLearning</title> <!-- A generic title is hard coded here but will be dynamically updated by JS -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        *:active {
+            outline: none;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, th, td {
+            margin: 0;
+            padding: 0;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: normal;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+    <link href="player/css/player.css" type="text/css" rel="stylesheet"/>
+
+
+    <!-- UBLIK-OM.NET CUSTOM INCLUDES -->
+	<!-- DEVELOPER: Dale de Silva -->
+    <link href="uo_includes/_admin-only/all-courses_styling.css" type="text/css" rel="stylesheet"/>
+	<link href="uo_includes/this-course_styling.css" type="text/css" rel="stylesheet"/> <!-- must be after generic styling to overwrite it where necessary -->
+    <script src="uo_includes/_admin-only/3rd-party/jquery-3.3.1.slim.min.js"></script>
+    <script src="uo_includes/this-course_customisations.js"></script> <!-- must be before generic edits to make it's functions available to it -->
+    <script src="uo_includes/_admin-only/all-courses_customisations.js"></script>
+    <!-- END UBLIK-OM.NET CUSTOM INCLUDES -->
+
+
+</head>
+
+<body>
+    
+    
+    <button id="uo_back-button" class="uo_hidden" aria-label="Previous page" tabindex="2" >
+        <i class="icon icon-chevron-left" role="img" style="color: rgb(255, 255, 255); font-size: 15px; height: 15px; width: 15px; display: inline;"></i> Back
+    </button>
+
+    
+    <div id="ev-root">
+    </div>
+
+    
+    <span id="bottom" class="uo_screenreader-only" tabindex="0">This is the end of the page.</span>
+
+
+    <script src="libraries/raphael.js" type="text/javascript" language="javascript"></script>
+    <script src="libraries/modernizr.js" type="text/javascript" language="javascript"></script>
+    <script src="player/js/courseData.js" type="text/javascript" language="javascript"></script>
+    <script src="player/js/player.min.js" type="text/javascript" language="javascript"></script>
+</body>
+</html>
