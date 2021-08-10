@@ -1,27 +1,27 @@
-
-
-
-
 // Global Variables
 ////////////////////////////////
 
-var newPageTimoutID;			// variable to holder the timer for page load refresh delays
-var newPageLoading = true;		// Flag to set on user action to inidicate of the next set of DOM mutations indicate a new page loading
-var firstHref;					// Indicates if this is the first run of this custom code on the page
-var landingPageSeen = false;	// Indicates if the landing page has shown once already
-var isLandingPage = false;		// Indicates if this is the landing page
+// variable to holder the timer for page load refresh delays
+let newPageTimoutID;
+// Flag to set on user action to indicate if the next set of DOM mutations are a new page loading
+let newPageLoading = true;
+// Indicates if this is the first run of this custom code on the page
+let firstHref;
+// Indicates if the landing page has shown once already
+let landingPageSeen = false;
+// Indicates if this is the landing page
+let isLandingPage = false;
 
-
-
+////////////////////////////////
+////////////////////////////////
 
 
 
 // Set up a function to be called whenever the page layout or contents changes (The DOM changes)
-var mutationObserver = new MutationObserver(function(mutations) {
+const mutationObserver = new MutationObserver(function(mutations) {
 	
 	mutations.forEach( function(mutation) {
 		// run these custom functions upon each change
-		
 		
 		// do things that need to and happen immediately
 		immediatePageAdjustments();
@@ -33,10 +33,6 @@ var mutationObserver = new MutationObserver(function(mutations) {
 	});
 	
 });
-
-
-
-
 
 
 
@@ -52,10 +48,6 @@ mutationObserver.observe( document.documentElement, {
 
 
 
-
-
-
-
 // Page adjustments that must happen immediately
 ////////////////////////////////////////////////
 // Each time a page loads or changes, this function is run multiple times. So only things which NEED to have an immediate effect should be placed in here so as to not slow down page loads.
@@ -67,9 +59,6 @@ function immediatePageAdjustments() {
 	immediateCourseSpecificPageAdjustments();
 	
 }
-
-
-
 
 
 
@@ -91,22 +80,6 @@ function delayedPageAdjustments() {
 	delayedCourseSpecificPageAdjustments();
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -148,16 +121,13 @@ function convertCodeComponents() {
 				$(this).addClass("uo_spacer");
 				
 			}
-			
-			
-		}			
-		
-		
+						
+		}	
+        
+				
 	} );
 	
 }
-
-
 
 
 
@@ -185,7 +155,6 @@ function showAndHideCompletableLinks() {
             let $curLinkItem = $(this);
 
             
-            
             // find the image in the link to check the alt text
             $curLinkItem.find("img").each( function (index2) {
                 let curLinkAlt = $(this).attr("alt").toLowerCase();
@@ -194,7 +163,6 @@ function showAndHideCompletableLinks() {
                 if( curLinkAlt.indexOf(completeSuffix)>0 ) {
                     // It is the completed image
                     ////////////////////////////
-
                                         
                     // Check if the link is disabled (hasn't been completed yet)
                     // Hide it if it is disabled
@@ -208,12 +176,9 @@ function showAndHideCompletableLinks() {
                     }
                     
                     
-                    
-                    
                 } else {
                     // It is the uncompleted image
                     //////////////////////////////
-
                     
                     // Assumes the link right before it was the completed link version of this item
                     if( completedLinkIsVisible ) {
@@ -226,17 +191,13 @@ function showAndHideCompletableLinks() {
 					// reset the flag to check the next link
                     completedLinkIsVisible = undefined;
                 }
-            
-                
                 
                 
             });
             
-            
         });
 
     });
-    
     
 }
 
@@ -284,12 +245,12 @@ function moveFocusToTop() {
 function makeAllHeadingsTabbable() {
     let $headings = $("h1, h2, h3, h4, h5");
 
-    console.log("$headings");
-    console.log($headings);
-    
-    //if($headings.attr("tabindex") == undefined || $headings.attr("tabindex") == false ) {
+//    if($headings.attr("tabindex") == undefined ||
+//       $headings.attr("tabindex") == false ) {
+        
         $headings.attr("tabindex", "0");
 //    }
+    
 }
 //
 function makeScreenReaderOnlySectionsTabbable() {
@@ -306,38 +267,46 @@ function makeMediaGridItemsTabbable() {
 
 
 
-
-
-
-
 // Make MCQ components more screenreader accessible
 ///////////////////////////////////////////////////
 // Make any text within the same block of n MCQ tabbable in order to ensure user gets some context
 function accessibleMcqComponentAdjustments() {
     
     // get all mcq's on the page
-    let $mcqs = $(".ev-mcq-widget");
+    let $mcqs = $(".ev-mcq-inner");
 	
     // get all containers (blocks) of each the mcq's
     let $container = $mcqs.closest(".ev-component-container");
     
-    // make any text in every container tabbable as it likely relates to the question
-    // This line was removed because Evolve made it the default behaviour
-    //$container.find(".ev-component-title, .ev-component-body, .ev-component-instruction").attr("tabindex", "0");
-    
+    // Make the body text in every MCQ tabbable as it likely relates to the question
+		// Removed because it's probably a little too forceful.
+		// $container.find(".ev-component-body").attr("tabindex", "0");
+		
     // add an aria label to the mcq (so it doesn't have to be done one at at a time in Evolve)
     $mcqs.each( function() {
-        $mcqAnswers = $(this).find(".ev-mcq-items");
+				$mcqInstructions = $(this).find(".ev-component-instruction");
+        $mcqAnswerGroup = $(this).find(".ev-mcq-items");
         
-        // only do it if it's not already set in Evolve
-        // TODO: This seems to do it regardless - check and adjust in the future
-        if( $mcqAnswers.attr("aria-label") == undefined ||
-            $mcqAnswers.attr("aria-label") == typeof undefined ||
-            $mcqAnswers.attr("aria-label") == false ) {
-            
-            $mcqAnswers.attr("aria-label", mcqAriaText);
-            // some screenreaders don't read it out so make it tabbable
-            $mcqAnswers.attr("tabindex", "0");
+				// Force the radio group's aria-label to be read out
+				$mcqAnswerGroup.attr("tabindex", "0");
+				
+				
+//						$mcqAnswerGroup.attr("aria-label") == undefined ||
+//            $mcqAnswerGroup.attr("aria-label") == typeof undefined ||
+//            $mcqAnswerGroup.attr("aria-label") == false
+			
+			// Remove the reference to the instruction text by "labbelledby" because it reads it at a weird time
+				$mcqAnswerGroup.attr("aria-labelledby", null );
+				
+        if( $mcqAnswerGroup.attr("aria-label") ) {
+						// If there's an aria-label set, read out that
+						
+				} else if( $mcqInstructions.length ) {
+						// Otherwise, if there's the instruction text, read out that (but with better timing)
+						$mcqAnswerGroup.attr("aria-label", $mcqInstructions.text() );
+				} else {
+						// Otherwise, read out this generic text
+            $mcqAnswerGroup.attr("aria-label", mcqAriaText);
         }
     });
     
@@ -392,16 +361,9 @@ function accessibleAudioComponentAdjustments() {
 
 
 
-
-
-
 ////////////////////////////////////////////////////////
 // Functions below can be called in the functions above.
 ////////////////////////////////////////////////////////
-
-
-
-
 
 
 // Set up a back button
@@ -435,11 +397,6 @@ function setUpBackButton() {
 
 
 
-
-
-
-
-
 // Load the previous page
 /////////////////////////
 function goBackAPage() {
@@ -449,18 +406,11 @@ function goBackAPage() {
 
 
 
-
-
-
-
-
 // Edit the style of button variations that can't be changed in Evolve
 //////////////////////////////////////////////////////////////////////
 function changeRetryButtonColor() {
     
      $("button").each( function (articleIndex) {
-        // console.log("inside article: "+this);
-
 		 
 		// Check if the button is a retry button
 		if( $(this).text()==retryButtonText ) {
@@ -480,4 +430,3 @@ function changeRetryButtonColor() {
     });
     
 }
-

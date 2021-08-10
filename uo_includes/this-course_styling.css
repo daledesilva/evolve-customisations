@@ -1,5 +1,4 @@
 
-
 /* Dynamic JavaScript Back */
 /* Updated: 06/08/2020 */
 #uo_back-button {
@@ -14,9 +13,10 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 1.25;
-  
+	
   position: absolute;
   z-index: 1000;
+	cursor: pointer;
 }	
 #uo_back-button:hover {
   background-color: #009fd9;
@@ -24,19 +24,6 @@
 
 
 
-
-
-
 /* ALL YOUR OPTIONAL CSS INCLUSIONS ARE BELONG BELOW HERE */
 /*--------------------------------------------------------*/
-
-
-
-
-
-
-
-
-
-
 
