@@ -10,7 +10,8 @@ const retryButtonText = "Retry";
 
 // The default MCQ and GMCQ aria text to apply if left blank
 // Change this to whatever you like, ie "Select an answer to submit it" (if you're not showing submit buttons)
-const mcqAriaText = "Select an answer and then click submit";
+const mcqWithSubmitAriaText = "Select an answer and then click submit";
+const mcqWithoutSubmitAriaText = "Select an answer to submit";
 
 //////////////////////////////////////////
 //////////////////////////////////////////

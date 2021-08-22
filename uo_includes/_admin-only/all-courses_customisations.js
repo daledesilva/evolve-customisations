@@ -272,42 +272,52 @@ function makeMediaGridItemsTabbable() {
 // Make any text within the same block of n MCQ tabbable in order to ensure user gets some context
 function accessibleMcqComponentAdjustments() {
     
-    // get all mcq's on the page
+    // find all mcq's on the page
     let $mcqs = $(".ev-mcq-inner");
 	
-    // get all containers (blocks) of each the mcq's
-    let $container = $mcqs.closest(".ev-component-container");
-    
+    // find all containers (blocks) of each the mcq's
+    // let $container = $mcqs.closest(".ev-component-container");
     // Make the body text in every MCQ tabbable as it likely relates to the question
-		// Removed because it's probably a little too forceful.
-		// $container.find(".ev-component-body").attr("tabindex", "0");
-		
+	// Removed because it's probably a little too forceful.
+	// $container.find(".ev-component-body").attr("tabindex", "0");
+
+    	
     // add an aria label to the mcq (so it doesn't have to be done one at at a time in Evolve)
     $mcqs.each( function() {
-				$mcqInstructions = $(this).find(".ev-component-instruction");
+        $mcqInstructions = $(this).find(".ev-component-instruction");
         $mcqAnswerGroup = $(this).find(".ev-mcq-items");
+        const numAnswers = $mcqAnswerGroup.find(".ev-mcq-item").length;
+        const hasSubmit = $(this).find(".ev-buttons-action").length;
         
-				// Force the radio group's aria-label to be read out
-				$mcqAnswerGroup.attr("tabindex", "0");
-				
-				
-//						$mcqAnswerGroup.attr("aria-label") == undefined ||
-//            $mcqAnswerGroup.attr("aria-label") == typeof undefined ||
-//            $mcqAnswerGroup.attr("aria-label") == false
+        // Force the radio group's aria-label to be read out
+        $mcqAnswerGroup.attr("tabindex", "0");
+								
+        // $mcqAnswerGroup.attr("aria-label") == undefined ||
+        // $mcqAnswerGroup.attr("aria-label") == typeof undefined ||
+        // $mcqAnswerGroup.attr("aria-label") == false
 			
-			// Remove the reference to the instruction text by "labbelledby" because it reads it at a weird time
-				$mcqAnswerGroup.attr("aria-labelledby", null );
+		// Remove the reference to the instruction text by "labelledby" because it reads it at a weird time
+		$mcqAnswerGroup.attr("aria-labelledby", null );
+
+        // Count the answers
 				
         if( $mcqAnswerGroup.attr("aria-label") ) {
-						// If there's an aria-label set, read out that
-						
-				} else if( $mcqInstructions.length ) {
-						// Otherwise, if there's the instruction text, read out that (but with better timing)
-						$mcqAnswerGroup.attr("aria-label", $mcqInstructions.text() );
-				} else {
-						// Otherwise, read out this generic text
-            $mcqAnswerGroup.attr("aria-label", mcqAriaText);
+            // If there's an aria-label set, just read out that as is
+		
+        } else if( $mcqInstructions.length ) {
+            // Otherwise, if there's the instruction text, read out that (but with better timing)
+            $mcqAnswerGroup.attr("aria-label", $mcqInstructions.text() );
+
+		} else {
+			// Otherwise, read out this generic text
+            if(hasSubmit) {
+                $mcqAnswerGroup.attr("aria-label", `${numAnswers} possible answers, ${mcqWithSubmitAriaText}`);
+            } else {
+                $mcqAnswerGroup.attr("aria-label", `${numAnswers} possible answers, ${mcqWithoutSubmitAriaText}`);
+            }
+
         }
+
     });
     
     
