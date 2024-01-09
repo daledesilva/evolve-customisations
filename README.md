@@ -1,4 +1,4 @@
-# evolve-customisations
+# Evolve Hacks
 Custom accessibility and aesthetic customisations for Evolve Authoring eLearning courses
 
 ---
